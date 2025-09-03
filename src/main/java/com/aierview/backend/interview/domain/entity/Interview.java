@@ -6,7 +6,6 @@ import com.aierview.backend.interview.domain.enums.InterviewRole;
 import com.aierview.backend.interview.domain.enums.InterviewStatus;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -21,6 +20,7 @@ public class Interview {
     private InterviewRole role;
     private InterviewLevel level;
     private InterviewStatus status;
-    private LocalDateTime createdAt;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//    private LocalDateTime createdAt;
     private List<Question> questions;
 }

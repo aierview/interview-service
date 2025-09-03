@@ -2,8 +2,9 @@ package com.aierview.backend.interview.usecase.impl;
 
 import com.aierview.backend.auth.domain.entity.UserRef;
 import com.aierview.backend.interview.domain.contract.cache.IInterviewCacheRepository;
-import com.aierview.backend.interview.domain.contract.publisher.IInterviewWebSocketPublisher;
 import com.aierview.backend.interview.domain.contract.repository.IQuestionRepository;
+import com.aierview.backend.interview.domain.contract.stream.IInterviewEventPublisher;
+import com.aierview.backend.interview.domain.contract.stream.SSE.IPublishSSEEvent;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.InterviewState;
 import com.aierview.backend.interview.domain.entity.Question;
@@ -25,17 +26,18 @@ import static org.mockito.Mockito.*;
 
 public class SendCurrentQuestionTests {
     private ISendCurrentQuestion sendCurrentQuestion;
-    private IInterviewWebSocketPublisher interviewWebSocketPublisher;
+    private IPublishSSEEvent publishSSEEvent;
     private IInterviewCacheRepository interviewCacheRepository;
     private IQuestionRepository questionRepository;
+    private IInterviewEventPublisher interviewEventPublisher;
 
 
     @BeforeEach
     public void setup() {
-        this.interviewWebSocketPublisher = mock(IInterviewWebSocketPublisher.class);
+        this.publishSSEEvent = mock(IPublishSSEEvent.class);
         this.interviewCacheRepository = mock(IInterviewCacheRepository.class);
         this.questionRepository = mock(IQuestionRepository.class);
-        sendCurrentQuestion = new SendCurrentQuestion(interviewWebSocketPublisher, interviewCacheRepository, questionRepository);
+        sendCurrentQuestion = new SendCurrentQuestion(publishSSEEvent, interviewCacheRepository, questionRepository, interviewEventPublisher);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class SendCurrentQuestionTests {
         Mockito.verify(this.questionRepository, times(1)).findById(currentQuestion.questionId());
         Mockito.verify(this.questionRepository, times(1)).save(questionWihAudioUrl);
         Mockito.verify(this.interviewCacheRepository, times(1)).get(savedInterview.getId());
-        Mockito.verify(this.interviewWebSocketPublisher, times(1)).execute(interviewState.getInterviewId(), currentQuestion);
+        Mockito.verify(this.publishSSEEvent, times(1)).publish(interviewState.getInterviewId(), currentQuestion);
         Mockito.verify(this.interviewCacheRepository, times(1)).revalidate(interviewState.getInterviewId(), interviewState);
     }
 
@@ -105,7 +107,7 @@ public class SendCurrentQuestionTests {
         Mockito.verify(this.questionRepository, times(1)).findById(currentQuestion.questionId());
         Mockito.verify(this.questionRepository, times(1)).save(questionWihAudioUrl);
         Mockito.verify(this.interviewCacheRepository, times(1)).get(savedInterview.getId());
-        Mockito.verify(this.interviewWebSocketPublisher, times(0)).execute(interviewStateWFCACK.getInterviewId(), currentQuestion);
+        Mockito.verify(this.publishSSEEvent, times(0)).publish(interviewStateWFCACK.getInterviewId(), currentQuestion);
         Mockito.verify(this.interviewCacheRepository, times(1)).revalidate(interviewStateWFCACK.getInterviewId(), interviewStateWFCACK);
 
     }

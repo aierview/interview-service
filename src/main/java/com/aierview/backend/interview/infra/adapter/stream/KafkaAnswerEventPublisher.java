@@ -1,6 +1,6 @@
-package com.aierview.backend.interview.infra.adapter.publisher;
+package com.aierview.backend.interview.infra.adapter.stream;
 
-import com.aierview.backend.interview.domain.contract.publisher.IAnswerEventPublisher;
+import com.aierview.backend.interview.domain.contract.stream.IAnswerEventPublisher;
 import com.aierview.backend.interview.domain.model.AnswerEventPublisherPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

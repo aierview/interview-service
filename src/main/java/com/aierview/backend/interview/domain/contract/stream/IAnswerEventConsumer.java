@@ -1,4 +1,4 @@
-package com.aierview.backend.interview.domain.contract.publisher;
+package com.aierview.backend.interview.domain.contract.stream;
 
 import com.aierview.backend.interview.domain.model.AnswerEventConsumerPayload;
 

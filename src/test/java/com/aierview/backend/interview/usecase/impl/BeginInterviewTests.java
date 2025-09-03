@@ -3,9 +3,9 @@ package com.aierview.backend.interview.usecase.impl;
 import com.aierview.backend.auth.domain.entity.UserRef;
 import com.aierview.backend.interview.domain.contract.IA.IGenerateQuestions;
 import com.aierview.backend.interview.domain.contract.cache.IInterviewCacheRepository;
-import com.aierview.backend.interview.domain.contract.publisher.IInterviewEventPublisher;
 import com.aierview.backend.interview.domain.contract.repository.IInterviewRepository;
 import com.aierview.backend.interview.domain.contract.repository.IQuestionRepository;
+import com.aierview.backend.interview.domain.contract.stream.IInterviewEventPublisher;
 import com.aierview.backend.interview.domain.contract.user.IGetLoggedUser;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.Question;
@@ -82,7 +82,7 @@ public class BeginInterviewTests {
                             .role(interview.getRole())
                             .level(interview.getLevel())
                             .status(interview.getStatus())
-                            .createdAt(interview.getCreatedAt())
+//                            .createdAt(interview.getCreatedAt())
                             .build();
                 });
         when(this.generateQuestions.execute(request, savedInterviewWithNoQuestion.getId())).thenThrow(new UnavailableIAServiceException());
@@ -121,7 +121,7 @@ public class BeginInterviewTests {
                             .role(interview.getRole())
                             .level(interview.getLevel())
                             .status(interview.getStatus())
-                            .createdAt(interview.getCreatedAt())
+//                            .createdAt(interview.getCreatedAt())
                             .build();
                 });
 
@@ -138,13 +138,13 @@ public class BeginInterviewTests {
         verify(this.generateQuestions, times(1)).execute(request, savedInterviewWithNoQuestion.getId());
         verify(this.questionRepository, times(1)).saveAll(questions);
         verify(this.interviewRepository).update(argThat(interview ->
-                interview.getId().equals(interview.getId()) &&
-                        interview.getUser().equals(savedUser) &&
-                        interview.getRole() == interviewWithNoQuestion.getRole() &&
-                        interview.getLevel() == interviewWithNoQuestion.getLevel() &&
-                        interview.getStack().equals(interviewWithNoQuestion.getStack()) &&
-                        interview.getStatus() == InterviewStatus.STARTED &&
-                        interview.getCreatedAt() != null
+                        interview.getId().equals(interview.getId()) &&
+                                interview.getUser().equals(savedUser) &&
+                                interview.getRole() == interviewWithNoQuestion.getRole() &&
+                                interview.getLevel() == interviewWithNoQuestion.getLevel() &&
+                                interview.getStack().equals(interviewWithNoQuestion.getStack()) &&
+                                interview.getStatus() == InterviewStatus.STARTED
+//                        interview.getCreatedAt() != null
         ));
     }
 }

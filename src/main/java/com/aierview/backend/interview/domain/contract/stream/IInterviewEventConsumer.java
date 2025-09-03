@@ -1,6 +1,5 @@
-package com.aierview.backend.interview.domain.contract.publisher;
+package com.aierview.backend.interview.domain.contract.stream;
 
-import com.aierview.backend.interview.domain.model.CurrentQuestion;
 import com.aierview.backend.interview.domain.model.InterviewEventConsumerPayload;
 
 public interface IInterviewEventConsumer {

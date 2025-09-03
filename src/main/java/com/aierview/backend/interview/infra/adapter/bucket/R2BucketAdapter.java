@@ -23,11 +23,10 @@ public class R2BucketAdapter implements IUploadBase64File {
     private String bucket;
 
 
-
     @Override
     public String execute(String base64) {
         byte[] bytes = Base64.getDecoder().decode(base64);
-        String filename = audioFilePath+"/"+UUID.randomUUID();
+        String filename = audioFilePath + "/" + UUID.randomUUID();
         r2Client.putObject(
                 PutObjectRequest.builder()
                         .bucket(bucket)

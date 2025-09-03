@@ -104,6 +104,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
@@ -221,7 +226,9 @@
                                 <exclude>com/aierview/backend/**/domain/entity/*.class</exclude>
                                 <exclude>com/aierview/backend/InterviewService.class</exclude>
                                 <exclude>com/aierview/backend/**/infra/persistence/entity/*.class</exclude>
-                                <exclude>com/aierview/backend/interview/infra/controller/InterviewWebSocketController.class</exclude>
+                                <exclude>
+                                    com/aierview/backend/interview/infra/controller/InterviewWebSocketController.class
+                                </exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -239,7 +246,9 @@
                                 <exclude>com/aierview/backend/**/domain/entity/*.class</exclude>
                                 <exclude>com/aierview/backend/InterviewService.class</exclude>
                                 <exclude>com/aierview/backend/**/infra/persisntence/entity/*.class</exclude>
-                                <exclude>com/aierview/backend/interview/infra/controller/InterviewWebSocketController.class</exclude>
+                                <exclude>
+                                    com/aierview/backend/interview/infra/controller/InterviewWebSocketController.class
+                                </exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -271,7 +280,9 @@
                                         <exclude>com/aierview/backend/**/domain/entity/*.class</exclude>
                                         <exclude>com/aierview/backend/InterviewService.class</exclude>
                                         <exclude>com/aierview/backend/**/infra/persisntence/entity/*.class</exclude>
-                                        <exclude>com/aierview/backend/interview/infra/controller/InterviewWebSocketController.class</exclude>
+                                        <exclude>
+                                            com/aierview/backend/interview/infra/controller/InterviewWebSocketController.class
+                                        </exclude>
                                     </excludes>
                                 </rule>
                             </rules>

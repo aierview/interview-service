@@ -33,6 +33,8 @@ public class InterviewCacheRepositoryAdapter implements IInterviewCacheRepositor
         InterviewState existing = (InterviewState) redisTemplate.opsForValue().get("interview:" + interviewId);
         if (existing != null) {
             existing.setCurrentQuestionIndex(newState.getCurrentQuestionIndex());
+            existing.setQuestionStatus(newState.getQuestionStatus());
+            existing.setQuestions(newState.getQuestions());
             redisTemplate.opsForValue().set("interview:" + interviewId, existing);
         } else {
             redisTemplate.opsForValue().set("interview:" + interviewId, newState);

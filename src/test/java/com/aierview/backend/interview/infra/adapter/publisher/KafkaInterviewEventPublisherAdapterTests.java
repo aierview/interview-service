@@ -1,9 +1,10 @@
 package com.aierview.backend.interview.infra.adapter.publisher;
 
-import com.aierview.backend.interview.domain.contract.publisher.IInterviewEventPublisher;
+import com.aierview.backend.interview.domain.contract.stream.IInterviewEventPublisher;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.Question;
 import com.aierview.backend.interview.domain.model.InterviewEventPublisherPayload;
+import com.aierview.backend.interview.infra.adapter.stream.KafkaInterviewEventPublisherAdapter;
 import com.aierview.backend.shared.testdata.InterviewTestFixture;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.junit.jupiter.api.BeforeEach;

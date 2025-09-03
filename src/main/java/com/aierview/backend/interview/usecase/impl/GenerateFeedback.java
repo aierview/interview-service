@@ -1,7 +1,6 @@
 package com.aierview.backend.interview.usecase.impl;
 
 import com.aierview.backend.interview.domain.contract.IA.IIAGenerateFeedback;
-import com.aierview.backend.interview.domain.contract.repository.IInterviewRepository;
 import com.aierview.backend.interview.domain.contract.repository.IQuestionRepository;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.Question;

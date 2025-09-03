@@ -3,9 +3,9 @@ package com.aierview.backend.interview.usecase.impl;
 import com.aierview.backend.auth.domain.entity.UserRef;
 import com.aierview.backend.interview.domain.contract.IA.IGenerateQuestions;
 import com.aierview.backend.interview.domain.contract.cache.IInterviewCacheRepository;
-import com.aierview.backend.interview.domain.contract.publisher.IInterviewEventPublisher;
 import com.aierview.backend.interview.domain.contract.repository.IInterviewRepository;
 import com.aierview.backend.interview.domain.contract.repository.IQuestionRepository;
+import com.aierview.backend.interview.domain.contract.stream.IInterviewEventPublisher;
 import com.aierview.backend.interview.domain.contract.user.IGetLoggedUser;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.Question;
@@ -14,7 +14,6 @@ import com.aierview.backend.interview.domain.model.BeginInterviewRequest;
 import com.aierview.backend.interview.domain.model.InterviewEventPublisherPayload;
 import com.aierview.backend.interview.usecase.contract.IBeginInterview;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class BeginInterview implements IBeginInterview {
@@ -48,7 +47,7 @@ public class BeginInterview implements IBeginInterview {
         interview.setQuestions(questions);
         this.interviewCacheRepository.put(interview);
         Question nextQuestion = interview.getQuestions().getFirst();
-        InterviewEventPublisherPayload payload =  new InterviewEventPublisherPayload(nextQuestion.getId(), nextQuestion.getQuestion());
+        InterviewEventPublisherPayload payload = new InterviewEventPublisherPayload(nextQuestion.getId(), nextQuestion.getQuestion());
         this.interviewEventPublisher.publish(payload);
         return interview.getId();
     }
@@ -61,7 +60,7 @@ public class BeginInterview implements IBeginInterview {
                 .role(request.getRole())
                 .level(request.getInterviewLevel())
                 .status(InterviewStatus.CREATED)
-                .createdAt(LocalDateTime.now())
+//                .createdAt(LocalDateTime.now())
                 .build();
     }
 }

@@ -3,15 +3,14 @@ package com.aierview.backend.interview.usecase.impl;
 import com.aierview.backend.auth.domain.entity.UserRef;
 import com.aierview.backend.interview.domain.contract.bucket.IUploadBase64File;
 import com.aierview.backend.interview.domain.contract.cache.IInterviewCacheRepository;
-import com.aierview.backend.interview.domain.contract.publisher.IAnswerEventPublisher;
-import com.aierview.backend.interview.domain.contract.publisher.IInterviewWebSocketPublisher;
 import com.aierview.backend.interview.domain.contract.repository.IQuestionRepository;
+import com.aierview.backend.interview.domain.contract.stream.IAnswerEventPublisher;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.InterviewState;
 import com.aierview.backend.interview.domain.entity.Question;
 import com.aierview.backend.interview.domain.exceptions.UnavailableNextQuestionException;
-import com.aierview.backend.interview.domain.model.OnAnswerReceivedRequest;
-import com.aierview.backend.interview.usecase.contract.IOnAnswerReceived;
+import com.aierview.backend.interview.domain.model.AnswerQuestionRequest;
+import com.aierview.backend.interview.usecase.contract.IAnswerQuestion;
 import com.aierview.backend.shared.testdata.AuthTestFixture;
 import com.aierview.backend.shared.testdata.InterviewTestFixture;
 import org.assertj.core.api.Assertions;
@@ -24,10 +23,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class OnAnswerReceivedTests {
-    private IOnAnswerReceived onAnswerReceived;
+    private IAnswerQuestion onAnswerReceived;
     private IQuestionRepository questionRepository;
     private IInterviewCacheRepository interviewCacheRepository;
-    private IInterviewWebSocketPublisher interviewWebSocketPublisher;
     private IAnswerEventPublisher answerEventPublisher;
     private IUploadBase64File uploadBase64File;
 
@@ -35,17 +33,15 @@ public class OnAnswerReceivedTests {
     void setUp() {
         this.questionRepository = Mockito.mock(IQuestionRepository.class);
         this.interviewCacheRepository = Mockito.mock(IInterviewCacheRepository.class);
-        this.interviewWebSocketPublisher = Mockito.mock(IInterviewWebSocketPublisher.class);
         this.uploadBase64File = Mockito.mock(IUploadBase64File.class);
-        this.onAnswerReceived = new OnAnswerReceived(questionRepository, interviewCacheRepository,
-                interviewWebSocketPublisher, answerEventPublisher, uploadBase64File);
+        this.onAnswerReceived = new AnswerQuestion(questionRepository, interviewCacheRepository, answerEventPublisher, uploadBase64File);
     }
 
 
     @Test
     @DisplayName("Should throw UnavailableNextQuestionException if user does not exists")
     void shouldThrowUnavailableNextQuestionException() {
-        OnAnswerReceivedRequest request = InterviewTestFixture.anyOnQuestionOnAnswerReceivedRequest();
+        AnswerQuestionRequest request = InterviewTestFixture.anyOnQuestionOnAnswerReceivedRequest();
         Mockito.when(this.questionRepository.findById(request.questionId())).thenReturn(Optional.empty());
         Throwable exception = Assertions.catchThrowable(() -> this.onAnswerReceived.execute(request));
         Assertions.assertThat(exception).isInstanceOf(UnavailableNextQuestionException.class);
@@ -61,7 +57,7 @@ public class OnAnswerReceivedTests {
         Interview savedInterview = InterviewTestFixture.anySavedInterviewWithNoQuestions(toSaveInterview);
 
         List<Question> questions = InterviewTestFixture.anySavedQuestionList(savedInterview);
-        OnAnswerReceivedRequest request = InterviewTestFixture.anyOnQuestionOnAnswerReceivedRequest();
+        AnswerQuestionRequest request = InterviewTestFixture.anyOnQuestionOnAnswerReceivedRequest();
 
         InterviewState interviewState = InterviewTestFixture.anySavedInterviewState(savedInterview.getId(), questions);
 

@@ -1,6 +1,5 @@
 package com.aierview.backend.interview.infra.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

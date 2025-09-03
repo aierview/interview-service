@@ -1,8 +1,8 @@
 package com.aierview.backend.interview.infra.adapter.publisher;
 
-import com.aierview.backend.interview.domain.contract.publisher.IInterviewEventConsumer;
-import com.aierview.backend.interview.domain.model.CurrentQuestion;
+import com.aierview.backend.interview.domain.contract.stream.IInterviewEventConsumer;
 import com.aierview.backend.interview.domain.model.InterviewEventConsumerPayload;
+import com.aierview.backend.interview.infra.adapter.stream.KafkaInterviewEventConsumerAdapter;
 import com.aierview.backend.interview.usecase.contract.ISendCurrentQuestion;
 import com.aierview.backend.shared.testdata.InterviewTestFixture;
 import org.junit.jupiter.api.BeforeEach;

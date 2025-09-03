@@ -37,7 +37,7 @@ public class InterviewTestFixture {
                 .role(InterviewRole.FULLSTACK)
                 .level(InterviewLevel.MIDLEVEL)
                 .status(InterviewStatus.CREATED)
-                .createdAt(LocalDateTime.of(2020, 1, 1, 0, 0))
+//                .createdAt(LocalDateTime.of(2020, 1, 1, 0, 0))
                 .build();
     }
 
@@ -69,7 +69,7 @@ public class InterviewTestFixture {
                 .role(savedInterviewJpaEntity.getRole())
                 .level(savedInterviewJpaEntity.getLevel())
                 .status(savedInterviewJpaEntity.getStatus())
-                .createdAt(savedInterviewJpaEntity.getCreatedAt())
+//                .createdAt(savedInterviewJpaEntity.getCreatedAt())
                 .build();
     }
 
@@ -176,7 +176,6 @@ public class InterviewTestFixture {
     }
 
 
-
     public static InterviewEventConsumerPayload anyInterviewEventConsumerPayload() {
         return new InterviewEventConsumerPayload(1L, "any_audio_url");
     }
@@ -203,21 +202,21 @@ public class InterviewTestFixture {
     public static InterviewState anySavedInterviewState(InterviewState interviewState, List<Question> questions) {
         interviewState.setQuestions(questions);
         interviewState.setCurrentQuestionIndex(1);
-        interviewState.setStatus(questions.getLast().getId(), "READY_FOR_SEND");
+        interviewState.setStatus(questions.getLast().getId(), "READY_FOR_SEND", questions.getLast());
         return interviewState;
     }
 
     public static InterviewState anySavedInterviewState(Long interviewId, List<Question> questions) {
         InterviewState interviewState = new InterviewState(interviewId, questions);
-        interviewState.setStatus(questions.getLast().getId(), "READY_FOR_SEND");
+        interviewState.setStatus(questions.getLast().getId(), "READY_FOR_SEND", questions.getLast());
         return interviewState;
     }
 
-    public static OnQuestionReceivedRequest anyOnQuestionReceivedRequest() {
-        return new OnQuestionReceivedRequest(1L);
+    public static QuestionReceivedRequest anyOnQuestionReceivedRequest() {
+        return new QuestionReceivedRequest(1L);
     }
 
-    public static OnAnswerReceivedRequest anyOnQuestionOnAnswerReceivedRequest() {
-        return new OnAnswerReceivedRequest( 1L,"any_answer");
+    public static AnswerQuestionRequest anyOnQuestionOnAnswerReceivedRequest() {
+        return new AnswerQuestionRequest(1L, "any_answer");
     }
 }

@@ -5,7 +5,6 @@ import com.aierview.backend.interview.domain.contract.IA.IIAGenerateFeedback;
 import com.aierview.backend.interview.domain.entity.Interview;
 import com.aierview.backend.interview.domain.entity.Question;
 import com.aierview.backend.interview.domain.exceptions.UnavailableIAServiceException;
-import com.aierview.backend.interview.domain.model.AnswerEventConsumerPayload;
 import com.aierview.backend.interview.domain.model.BeginInterviewRequest;
 import com.aierview.backend.interview.domain.model.GenerateFeedbackRequest;
 import com.aierview.backend.interview.domain.model.GenerateFeedbackResponse;
@@ -41,9 +40,9 @@ public class GeminiServiceAdapter implements IGenerateQuestions, IIAGenerateFeed
     public GenerateFeedbackResponse execute(GenerateFeedbackRequest request) {
         try {
             String prompt = this.geminiFunctUtils.generateFeedbackPrompt(request);
-            List<String> feedbackText =  geminiFunctUtils.getResponse(prompt);
+            List<String> feedbackText = geminiFunctUtils.getResponse(prompt);
             feedbackText.removeIf(s -> s == null || s.isBlank());
-            double score = Double.parseDouble(feedbackText.getLast());
+            double score = Double.parseDouble(feedbackText.getLast().split("/")[0]);
             return new GenerateFeedbackResponse(feedbackText.getFirst(), score);
         } catch (Exception e) {
             //log strategy

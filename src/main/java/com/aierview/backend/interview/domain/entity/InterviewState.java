@@ -41,8 +41,14 @@ public class InterviewState {
         return questions.get(currentQuestionIndex + 1);
     }
 
-    public void setStatus(Long questionId, String status) {
+    public void setStatus(Long questionId, String status, Question newQuestion) {
         questionStatus.put(questionId, status);
+        for (int i = 0; i < this.questions.size(); i++) {
+            if (this.questions.get(i).getId().equals(questionId)) {
+                this.questions.set(i, newQuestion);
+                break;
+            }
+        }
     }
 
     public String getStatus(Long questionId) {

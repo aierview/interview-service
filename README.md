@@ -1,6 +1,7 @@
 # Interview Service
 
-The **InterviewService** is responsible for managing technical interviews within the AIRVIEW platform. Its main functionalities include:
+The **InterviewService** is responsible for managing technical interviews within the AIRVIEW platform. Its main
+functionalities include:
 
 - **Starting an interview**: initializes the interview session for a user.
 - **Generating questions**: creates questions based on the user's role, level, and technology stack.
@@ -13,23 +14,29 @@ The **InterviewService** is responsible for managing technical interviews within
 
 ## Architecture Overview
 
-The InterviewService uses a **modular monolithic architecture combined with Clean Architecture**, which provides several strategic advantages:
+The InterviewService uses a **modular monolithic architecture combined with Clean Architecture**, which provides several
+strategic advantages:
 
 ### Modular Monolithic Architecture
+
 - The modular monolithic design organizes the application into independent modules within a single codebase.
-- **Justification:** This approach allows for easier **refactoring into microservices** in the future. For example, the authentication module can be extracted into a standalone microservice without disrupting the rest of the system.
+- **Justification:** This approach allows for easier **refactoring into microservices** in the future. For example, the
+  authentication module can be extracted into a standalone microservice without disrupting the rest of the system.
 - Modules communicate internally in a controlled manner, keeping dependencies manageable and improving maintainability.
 
 ### Clean Architecture
-- Each module follows **Clean Architecture principles**, ensuring a clear separation of responsibilities between layers (e.g., domain, usecase and infrastructure).
+
+- Each module follows **Clean Architecture principles**, ensuring a clear separation of responsibilities between
+  layers (e.g., domain, usecase and infrastructure).
 - **Justification:** This separation enables:
-   - Easier **unit testing** by isolating business logic from infrastructure concerns.
-   - Maintainability and scalability, as changes in one layer do not impact others.
-   - A decoupled design, reducing the risk of tight coupling between modules and dependencies.
+    - Easier **unit testing** by isolating business logic from infrastructure concerns.
+    - Maintainability and scalability, as changes in one layer do not impact others.
+    - A decoupled design, reducing the risk of tight coupling between modules and dependencies.
 
 ---
 
 ## Key Benefits
+
 - **Future-proofing:** Modular monolith allows the service to be split into microservices over time.
 - **Testability:** Clean Architecture facilitates unit and integration testing.
 - **Maintainability:** Layered separation and module boundaries reduce complexity and make refactoring safer.
@@ -37,7 +44,9 @@ The InterviewService uses a **modular monolithic architecture combined with Clea
 
 ---
 
-This combined architectural approach ensures that the InterviewService remains **robust, testable, and adaptable**, supporting both current MVP requirements and planned expansions, such as microservices decomposition and enhanced modularity.
+This combined architectural approach ensures that the InterviewService remains **robust, testable, and adaptable**,
+supporting both current MVP requirements and planned expansions, such as microservices decomposition and enhanced
+modularity.
 
 ## Technologies used
 
@@ -62,8 +71,8 @@ This combined architectural approach ensures that the InterviewService remains *
 - **Spring DevTools** → Provides live reload and debugging features for development.
 - **Gemini** → Artificial Intelligence used to generate interview questions and calculate feedback scores.
 
-
 ## Flow
+
 ## User Authentication Flow
 
 The InterviewService handles user authentication, including **registration** and **login**.
@@ -100,7 +109,6 @@ After registration, users can sign in to the platform.
 
 > The authentication flow ensures that users can only access their own account and corresponding interview sessions.
 
-
 ### Start Interview Flow
 
 After signing in, the user can begin an interview session by providing some initial information.
@@ -129,7 +137,8 @@ After signing in, the user can begin an interview session by providing some init
             - **Total interview score**
         - The feedback can be downloaded as a PDF or viewed directly in the platform.
 
-> This flow ensures a smooth, sequential interview experience while allowing the backend to process responses and evaluate performance in real-time.
+> This flow ensures a smooth, sequential interview experience while allowing the backend to process responses and
+> evaluate performance in real-time.
 
 # 🖥️ Instructions to Run Locally
 
@@ -140,7 +149,8 @@ To run this project locally, the following prerequisites must be met:
 3. **Kafka** → running locally.
 4. **Environment Variables** → Engine Environment:
 
-    - **GOOGLE_TOKEN_INFO_URL**: provide the Google Token Info URL from your account to manage Google Account authentication.
+    - **GOOGLE_TOKEN_INFO_URL**: provide the Google Token Info URL from your account to manage Google Account
+      authentication.
     - **R2_ENDPOINT**: the endpoint URL for your Cloudflare R2 bucket.
     - **R2_BUCKET**: the name of your R2 bucket.
     - **R2_ACCESS_KEY**: access key for R2 authentication.
@@ -154,18 +164,21 @@ To run this project locally, the following prerequisites must be met:
 
 > Ensure that Redis and Kafka are running and properly configured before starting the application.
 > ⚠️ Important: Provide all the environment variables listed above in the `application.yaml` file of your project.
+
 ### Spring Boot Profiles
 
-By default, the environment variables provided in `application.yaml` will be used under the **default Spring Boot profile**.
+By default, the environment variables provided in `application.yaml` will be used under the **default Spring Boot
+profile**.
 
 For other environments, you can create separate profile-specific configuration files:
 
-- **Development profile**: `application-dev.yaml` → for local or development setups. Add the same environment variables configured for development.
+- **Development profile**: `application-dev.yaml` → for local or development setups. Add the same environment variables
+  configured for development.
 - **Homologation / Staging profile**: `application-homolog.properties` → to simulate a staging environment.
 - **Production profile**: `application-prod.properties` → for production deployment with production-ready variables.
 
-> Spring Boot will automatically pick the configuration file corresponding to the active profile set via `spring.profiles.active`.
-
+> Spring Boot will automatically pick the configuration file corresponding to the active profile set via
+`spring.profiles.active`.
 
 ## Steps to run
 
@@ -175,14 +188,14 @@ After setting up all environment variables and selecting the desired Spring Boot
     - Open the project in IntelliJ.
     - Locate the main class `InterviewService`.
     - Run it directly via the IDE's Spring Boot run configuration.
-      > The selected Spring profile (default, dev, homolog, prod) will be applied automatically based on your `application-<profile>.yaml`.
+      > The selected Spring profile (default, dev, homolog, prod) will be applied automatically based on your
+      `application-<profile>.yaml`.
 
 2. **Using Maven from the terminal**:
     - By default, Maven will use the `default` Spring profile.
     - To specify a different profile (e.g., dev, homolog, prod), run:
    ```bash
    mvn spring-boot:run -Dspring-boot.run.profiles=dev
-
 
 > Replace the above values with the real ones from your environment.
 
@@ -191,32 +204,37 @@ After setting up all environment variables and selecting the desired Spring Boot
 To run the environment using Docker Compose, make sure you have the following repositories cloned locally:
 
 1. **Infrastructure Repository**
-   - First, clone the infrastructure repository locally:
+    - First, clone the infrastructure repository locally:
 
-     ```bash
-     git clone https://github.com/aierview/infra.git
-     ```
-     
-   - Then, start by running the Docker Compose located in the infrastructure repository.
-   - This will start **Zookeeper**, **Kafka**, and **KafDrop**.
+      ```bash
+      git clone https://github.com/aierview/infra.git
+      ```
+
+    - Then, start by running the Docker Compose located in the infrastructure repository.
+    - This will start **Zookeeper**, **Kafka**, and **KafDrop**.
 
 2. **Speech Service Repository**
-   - First, clone the Speech Service repository locally:
+    - First, clone the Speech Service repository locally:
 
-     ```bash
-     git clone https://github.com/aierview/speech-service.git
-     ```
+      ```bash
+      git clone https://github.com/aierview/speech-service.git
+      ```
 
-   - Next, run the Docker Compose located in the Speech Service repository.
-   - Make sure to replace all environment variables with your actual values.
-> Important: The Interview Service depends on both the infrastructure and the Speech Service, so ensure they are up and running before starting the Interview Service container.
+    - Next, run the Docker Compose located in the Speech Service repository.
+    - Make sure to replace all environment variables with your actual values.
 
-> Note: When starting the infrastructure services, start each service one by one in the following order: **ZooKeeper → Kafka → KafDrop**.
+> Important: The Interview Service depends on both the infrastructure and the Speech Service, so ensure they are up and
+> running before starting the Interview Service container.
+
+> Note: When starting the infrastructure services, start each service one by one in the following order: **ZooKeeper →
+Kafka → KafDrop**.
 > - Wait until ZooKeeper is fully ready to accept connections before starting Kafka.
-> - Wait until Kafka is fully ready to accept connections before starting KafDrop.  
-> - Failing to respect this order and the readiness of each service may cause some services to fail to start due to unmet dependencies.
+> - Wait until Kafka is fully ready to accept connections before starting KafDrop.
+> - Failing to respect this order and the readiness of each service may cause some services to fail to start due to
+    unmet dependencies.
 
-> Once all infrastructure services are verified to be running, including **Redis**, navigate to the **Interview Service** directory and run the following command to start the InterviewService container:
+> Once all infrastructure services are verified to be running, including **Redis**, navigate to the **Interview Service
+** directory and run the following command to start the InterviewService container:
 
 ```bash
 docker-compose up
@@ -225,31 +243,38 @@ docker-compose up
 ## 📦 Examples / Payloads
 
 ### Input Payload (consumed by TTS)
+
 Topic: `interview-question.text`
 
 The TTS service consumes a payload representing the question to be converted into audio:
 
 **Fields:**
+
 - `questionId` (Long): the ID of the question
 - `question` (String): the text of the question
 
 **Example JSON message:**
+
 ```json
 {
   "questionId": 123,
   "question": "Explain the concept of dependency injection in Java."
 }
 ```
+
 ### Output Payload (produced by TTS)
+
 Topic: `interview-question.audio`
 
 After generating the audio, the TTS service produces a payload containing the audio URL:
 
 **Fields:**
+
 - `questionId` (Long): the ID of the question
 - `audioUrl` (String): the URL to access the generated audio
 
 **Example JSON message:**
+
 ```json
 {
   "questionId": 123,
@@ -258,31 +283,38 @@ After generating the audio, the TTS service produces a payload containing the au
 ```
 
 ### Input Payload (consumed by STT)
+
 Topic: `interview-answer.audio`
 
 The STT service consumes a payload representing the audio file to be transcribed:
 
 **Fields:**
+
 - `questionId` (Long): the ID of the question associated with the audio
 - `filename` (String): the name of the audio file to be transcribed
 
 **Example JSON message:**
+
 ```json
 {
   "questionId": 123,
   "filename": "123_answer.mp3"
 }
 ```
+
 ### Output Payload (produced by STT)
+
 Topic: `interview-answer.text`
 
 After transcribing the audio, the STT service produces a payload containing the text of the answer:
 
 **Fields:**
+
 - `questionId` (Long): the ID of the question associated with the audio
 - `answerText` (String): the transcribed text from the audio
 
 **Example JSON message:**
+
 ```json
 {
   "questionId": 123,
@@ -293,12 +325,15 @@ After transcribing the audio, the STT service produces a payload containing the 
 # 🧪 Interview Service Tests
 
 This directory is intended for **unit and integration tests** related to the InterviewService.
+
 ## Running Tests
 
 ### Using IntelliJ
+
 You can run the tests directly from your IDE (IntelliJ) by running the test classes or the test suite.
 
 ### Using Maven in the Terminal
+
 You can also run the tests from the terminal using Maven commands:
 
 - `mvn test` → runs the tests and generates test reports.
@@ -306,8 +341,8 @@ You can also run the tests from the terminal using Maven commands:
 - `mvn clean install` → cleans, compiles, and installs the project, running the tests in the process.
 
 > The test coverage report will be available in the `target` folder.  
-> The minimum required test coverage is currently set to 60–80%. If coverage is below this threshold, `mvn verify` will return an error.
-
+> The minimum required test coverage is currently set to 60–80%. If coverage is below this threshold, `mvn verify` will
+> return an error.
 
 # 🤝 Contribution
 
@@ -320,11 +355,14 @@ Repository: [https://github.com/aierview/interview-service](https://github.com/a
 ## How to Contribute
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/aierview/interview-service
 cd inerview-service
 ```
+
 2. **Create a new branch from main for your feature or fix:**
+
 ```bash
 git checkout main
 git pull
@@ -334,11 +372,14 @@ git checkout -b your-feature-branch
 3. **Develop your feature or bug fix.**
 
 4. **Commit your changes with clear messages:**
+
 ```bash
 git add .
 git commit -m "Describe your changes"
 ```
+
 5. **git push origin your-feature-branch**
+
 ```bash
 git push origin your-feature-branch
 ```
@@ -349,16 +390,18 @@ git push origin your-feature-branch
 ## ⚠️ Important Notes
 
 - Always create a branch with a **descriptive name** that indicates the purpose of your changes:
-   - Features: prefix with `feature/` → e.g., `feature/add-tts-queue`.
-   - Bug fixes: prefix with `fix/` → e.g., `fix/audio-upload-bug`.
-   - DevOps / CI-CD changes: prefix with `devops/` → e.g., `devops/docker-config`.
-   - Documentation: prefix with `docs/` → e.g., `docs/update-readme`.
-   - Tests: prefix with `test/` → e.g., `test/tts-unit-tests`.
+    - Features: prefix with `feature/` → e.g., `feature/add-tts-queue`.
+    - Bug fixes: prefix with `fix/` → e.g., `fix/audio-upload-bug`.
+    - DevOps / CI-CD changes: prefix with `devops/` → e.g., `devops/docker-config`.
+    - Documentation: prefix with `docs/` → e.g., `docs/update-readme`.
+    - Tests: prefix with `test/` → e.g., `test/tts-unit-tests`.
 
 - Make **small commits** to facilitate the review process.  
-  Avoid large commits with multiple unrelated changes; this ensures that the review and approval process is smoother and more efficient.
+  Avoid large commits with multiple unrelated changes; this ensures that the review and approval process is smoother and
+  more efficient.
 
-> It is important that every contribution follows this branching and commit convention to maintain control and clarity over what changes are introduced into the project.
+> It is important that every contribution follows this branching and commit convention to maintain control and clarity
+> over what changes are introduced into the project.
 
 ## 🚀 Roadmap / Future Features
 
@@ -368,9 +411,11 @@ git push origin your-feature-branch
 - **Kubernetes deployment**: Currently, the application is deployed directly on Fly.io.  
   The plan is to migrate to Kubernetes for a more professional, scalable, and manageable deployment workflow.
 
-- **Authentication service migration**: Move the authentication module currently inside the Interview Service to a **dedicated microservice**.
+- **Authentication service migration**: Move the authentication module currently inside the Interview Service to a *
+  *dedicated microservice**.
 
-- **Microservices architecture enhancements**: Introduce a **Config Server**, **Discovery Server**, and an **API Gateway** to better manage and route requests between microservices.
+- **Microservices architecture enhancements**: Introduce a **Config Server**, **Discovery Server**, and an **API Gateway
+  ** to better manage and route requests between microservices.
 
 ## 📝 License
 
@@ -401,9 +446,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## 🔗 Useful Links
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot) – Framework used for building the Interview Service backend.
+
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot) – Framework used for building the Interview
+  Service backend.
 - [Redis Documentation](https://redis.io/documentation) – Used for caching and session management.
-- [Google Authentication](https://developers.google.com/identity) – Documentation for integrating Google Sign-In and OAuth authentication.
+- [Google Authentication](https://developers.google.com/identity) – Documentation for integrating Google Sign-In and
+  OAuth authentication.
 - [Google Token Info URL](https://www.googleapis.com/oauth2/v3/tokeninfo) – Endpoint to validate Google OAuth tokens.
 - [Fly.io](https://fly.io/docs/) – Platform used for deploying the AIRVIEW services.
-- [Apache Kafka](https://kafka.apache.org/documentation/) – Official documentation for Kafka, used for message streaming in AIRVIEW.
+- [Apache Kafka](https://kafka.apache.org/documentation/) – Official documentation for Kafka, used for message streaming
+  in AIRVIEW.

@@ -58,11 +58,11 @@ public class GeminiFunctUtils {
 
         prompt.append("📝 Instruções:\n");
         prompt.append("1. Retorne o feedback utilizando o seguinte formato:\n");
-        prompt.append(" [Seu feedback aqui]##\n\n");
-        prompt.append("2. Atribua uma nota de 0 a 10 com base na resposta, considerando critérios técnicos e comunicativos:\n");
-        prompt.append("[Nota de 0 a 10]##\n\n");
+        prompt.append("Seu feedback aqui##\n\n");
+        prompt.append("2. Atribua uma nota de 0 a 10 com com base na resposta, considerando critérios técnicos e comunicativos:\n");
+        prompt.append("a nota aqui##\n\n");
         prompt.append("Adicione ## ao final do feedback para indicar o término o feedback.\n");
-        prompt.append("Adicione ## ao final do score para indicar o término do score.\n");
+        prompt.append("Adicione ## ao final do score para indicar o término da nota, nunca esqueça de atribuir uma nota.\n");
         prompt.append("Ignore erros ortográficos ou de digitação ao atribuir o score. ");
         prompt.append("Erros de português não devem ser apontados no feedback e não devem influenciar negativamente ");
         prompt.append("no score do candidato caso o conteúdo técnico esteja correto.\n\n");
