@@ -1,24 +1,53 @@
 google:
-  token-info-url: ${GOOGLE_TOKEN_INFO_URL}
+ token-info-url: ${GOOGLE_TOKEN_INFO_URL}
+
+gemini:
+ api-key: ${GEMINI_API_KEY}
+ api-url: ${GEMINI_API_URL}
 
 r2:
-  endpoint: ${R2_ENDPOINT}
-  bucket: ${R2_BUCKET}
-  access_key: ${R2_ACCESS_KEY}
-  secret_key: ${R2_SECRET_KEY}
-  audio_file_path: ${R2_AUDIO_FILE_PATH}
+ endpoint: ${R2_ENDPOINT}
+ bucket: ${R2_BUCKET}
+ access_key: ${R2_ACCESS_KEY}
+ secret_key: ${R2_SECRET_KEY}
+ audio_file_path: ${R2_AUDIO_FILE_PATH}
+
+eureka:
+ client:
+  service-url:
+   defaultZone: ${EUREKA_SERVER_URL}
+
+management:
+ endpoints:
+  web:
+   exposure:
+    include: health,info,prometheus
+ prometheus:
+  metrics:
+   export:
+    enabled: true
+ zipkin:
+  tracing:
+   endpoint: ${ZIPKIN_URL}
+ tracing:
+  sampling:
+   probability: 1.0
 
 spring:
-  data:
-    redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-  security:
-    jwt:
-      secret-key: ${JWT_SECRET_KEY}
-      expiration-time: ${JWT_EXPIRATION_TIME}
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+ data:
+  redis:
+   host: ${REDIS_HOST}
+   port: ${REDIS_PORT}
+   password: ${REDIS_PASSWORD}
+ security:
+  jwt:
+   secret-key: ${JWT_SECRET_KEY}
+   expiration-time: ${JWT_EXPIRATION_TIME}
+ kafka:
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+  producer:
+   key-serializer: org.apache.kafka.common.serialization.StringSerializer
+   value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  properties:
+   client.dns.lookup: use_all_dns_ips
+   security.protocol: PLAINTEXT

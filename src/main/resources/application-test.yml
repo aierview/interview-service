@@ -9,4 +9,4 @@ google:
 
 gemini:
   api-key: "any_valid_api_key"
-  api-url: "http://localhost:8089/gemini/generateContent"
+	api-url: "http://localhost:8089/gemini/generateContent"

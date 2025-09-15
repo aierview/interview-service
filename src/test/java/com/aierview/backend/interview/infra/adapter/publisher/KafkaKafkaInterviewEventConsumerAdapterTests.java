@@ -26,7 +26,7 @@ public class KafkaKafkaInterviewEventConsumerAdapterTests {
     void shouldConsumeTopicOfKafkaAndSendQuestion() {
         InterviewEventConsumerPayload currentQuestion = InterviewTestFixture.anyInterviewEventConsumerPayload();
         Mockito.doNothing().when(this.sendCurrentQuestion).execute(currentQuestion);
-        this.kafkaInterviewEventConsumer.consume(currentQuestion);
+        this.kafkaInterviewEventConsumer.consume(currentQuestion, "");
         Mockito.verify(this.sendCurrentQuestion, Mockito.times(1)).execute(currentQuestion);
 
     }
